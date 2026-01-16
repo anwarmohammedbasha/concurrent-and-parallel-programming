@@ -1,7 +1,5 @@
-"""
-Docstring for main
-"""
 import time
+import threading
 
 
 def calculate_sum_of_squares(n):
@@ -20,16 +18,30 @@ def main():
 
     start_time = time.time()
 
+    current_threads = []
+
     for i in range(5):
-        calculate_sum_of_squares((i+1) * 1000000)
+        max_value = (i+1) * 1000000
+        t = threading.Thread(
+            target=calculate_sum_of_squares, args=(max_value, ))
+        t.start()
+        current_threads.append(t)
+
+    for i in range(len(current_threads)):
+        current_threads[i].join()
 
     print("Calculating sum of squares took:",
           round(time.time() - start_time, 1))
 
     start_time = time.time()
 
-    for i in range(1, 6):
-        sleep_a_little(i)
+    for seconds in range(1, 6):
+        t = threading.Thread(target=sleep_a_little, args=(seconds,))
+        t.start()
+        current_threads.append(t)
+        
+    for i in range(len(current_threads)):
+        current_threads[i].join()
 
     print("Sleep took:", round(time.time() - start_time, 1))
 
