@@ -1,2 +1,4 @@
+workers\__pycache__\PostgresWorker.cpython-314.pyc
+workers\__pycache__\WikiWorker.cpython-314.pyc
+workers\__pycache__\YahooFinanceWorkers.cpython-314.pyc
 .venv
-workers\__pycache__
